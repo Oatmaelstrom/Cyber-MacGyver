@@ -16,3 +16,11 @@ int getX() { return xpos; }
 int getY() { return ypos; }
 int getId() { return id; }
 }
+
+class MovableEntity : Public Entity {
+  
+}
+
+class StationaryEntity : Public Entity {
+  
+}
