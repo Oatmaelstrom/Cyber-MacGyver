@@ -1,23 +1,5 @@
-#include <>
-
+#include "GameModel.h"
+#include <string>
 
 using namespace std;
 
-Class GameModel
-{
-    GameModel(){}
-
-    Running();
-
-    Jump();
-
-    Rlide();
-
-    Load();
-
-    Save();
-
-
-
-
-};
