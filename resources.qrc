@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>stuff/background.png</file>
+        <file>stuff/borad.png</file>
+        <file>stuff/castle.png</file>
+        <file>stuff/crate1_diffuse.png</file>
+        <file>stuff/ground.png</file>
+        <file>stuff/slide3.png</file>
+        <file>stuff/tower.png</file>
+        <file>stuff/wallbare.png</file>
+        <file>stuff/water.png</file>
+        <file>stuff/waterRight.png</file>
+        <file>stuff/running.gif</file>
+        <file>stuff/slide1.png</file>
+        <file>stuff/slide2.png</file>
+        <file>stuff/slide4.png</file>
+    </qresource>
+</RCC>

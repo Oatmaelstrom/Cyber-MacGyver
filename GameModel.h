@@ -1,39 +1,45 @@
 #ifndef GAMEMODEL_H
 #define GAMEMODEL_H
 
-#include <QMainWindow>
-#include <iostream>
-#include <string>
+#include "Background.h"
+#include "Scenery.h"
+#include "Obstacles.h"
+#include <QMovie>
+#include <QDebug>
+
 
 using namespace std;
 
-namespace Ui{
 class MainWindow;
-}
 
 class GameModel
 {
-    int x, y;
-    string image;
 
-    public:
-    GameModel(int initX, int initY, string initImage): x(initX), y(initY), image(initImage)
-    {}
+    vector<Background> background;
+    vector<Obstacles*> obs;
+    //vector<Scenery> some;
+    MainWindow *main;
 
-    virtual void Running();
+public:
+    GameModel(MainWindow *parent)
+    {
+        main = parent;
+    }
 
-    virtual void Jump();
+    void Load();
 
-    virtual void Slide();
+    void Save();
 
-    virtual void Load();
+    void print();
 
-    virtual void Save();
+    void move();
+
+    QLabel* dude;
+    QMovie *running;
+int pos;
 
 };
 
-class Player : public GameModel
-{
 
-};
+
 #endif // GAMEMODEL_H
