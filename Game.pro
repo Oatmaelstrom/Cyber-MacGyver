@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    GameModel.cpp
+    GameModel.cpp \
+    HighScores.cpp
 
 HEADERS  += mainwindow.h \
-    GameModel.h
+    GameModel.h \
+    HighScores.h
 
 FORMS    += mainwindow.ui
