@@ -31,10 +31,10 @@ public:
 
     void keyPressEvent(QKeyEvent *ev) {
 
-        if (ev->key() == Qt::Key_W) {
+        if (ev->key() == Qt::Key_Up) {
             on_jumpButton_clicked();
         }
-        if (ev->key() == Qt::Key_S) {
+        if (ev->key() == Qt::Key_Down) {
             on_slideBtn_clicked();
         }
     }
