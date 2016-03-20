@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     Background.cpp \
     Runner.cpp \
     Scenery.cpp \
-    Obstacles.cpp
+    Obstacles.cpp \
+    View.cpp \
+    GameObject.cpp
 
 HEADERS  += mainwindow.h \
     GameModel.h \
     Background.h \
-    Runner.h \
     Scenery.h \
-    Obstacles.h
+    Obstacles.h \
+    Runner.h \
+    View.h \
+    GameObject.h
 
 FORMS    += mainwindow.ui
 

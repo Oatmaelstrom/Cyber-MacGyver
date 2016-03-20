@@ -1,50 +1,52 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
-#include "GameModel.h"
 #include "mainwindow.h"
+#include "GameModel.h"
+#include "GameObject.h"
 
-class Background
+
+class Background : public GameObject
 {
-
-    QLabel *display;
-    QString image;
-
 
 public:
 
-    Background(MainWindow *parent, QString picture, QRect rect)
+    Background(QRect *par, int ex, int num) : GameObject(par, ex, num)
     {
-        image = picture;
-        display = new QLabel(parent);
-        display->setScaledContents(true);
-        display->setGeometry(rect);
-        display->setPixmap(QPixmap(image));
+        x += par->width();
+        w += ex;
+        image = ":/stuff/background.png";
+        this->size();
     }
 
-    QLabel* getLabel() {return display;}
+    void size()
+    {
+        x = x * pos;
+    } 
 
+    void setSize(QRect *new_, QRect* old )
+    {
+        x = new_->x() ;
+        y = new_->y();
+        w = new_->width() + extra;
+        h = new_->height();
+
+        size();
+    }
+
+
+
+    void Update(){}
 };
 
-//class Backdrop : Background
-//{
-//    Q_OBJECT
+class Backdrop : public Background
+{
 
-//    QLabel * display;
-//    QString image;
-//    MainWindow * m;
-
-//public:
-
-//    Backdrop(MainWindow * parent, QString picture, QRect rect): Background()
-//    {
-//        m->parent();
-
-//        display->setPixmap(QPixmap(image);
-//    }
-
-
-
-//};
+public:
+    Backdrop(QRect *par, int ex, int num) : Background(par, ex, num)
+    {
+        image = ":/stuff/castle.png";
+    }
+};
 
 #endif // BACKGROUND_H

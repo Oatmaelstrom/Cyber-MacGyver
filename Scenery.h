@@ -2,27 +2,22 @@
 #define SCENERY_H
 
 #include "GameModel.h"
+#include "mainwindow.h"
 
-class Scenery : public QLabel
-{
-    Q_OBJECT
+//class Scenery
+//{
 
-    QLabel * display;
-    QString image;
+//    QString image;
 
+//public:
 
-public:
+//    Scenery(MainWindow * parent, QString picture, QRect rect): QLabel(parent)
+//    {
+//        image = picture;
 
-    Scenery(MainWindow * parent, QString picture, QRect rect): QLabel(parent)
-    {
-        image = picture;
-        display = new QLabel(parent);
-        display->setScaledContents(true);
-        display->setGeometry(rect);
-        display->setPixmap(QPixmap(image));
-    }
+//    }
 
-};
+//};
 
 
 #endif // SCENERY_H

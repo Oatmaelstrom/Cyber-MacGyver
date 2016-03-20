@@ -5,18 +5,16 @@
 #include <QTimer>
 #include <QLabel>
 #include <QWidget>
-#include <QMouseEvent>
 #include <QKeyEvent>
 
-class GameModel;
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
-//Golbal
-static int background_scroll_speed = 2;
-static int scroll_speed = 15;
+class GameModel;
+class View;
 
 class MainWindow : public QMainWindow
 {
@@ -25,39 +23,32 @@ class MainWindow : public QMainWindow
 private slots:
     void timerHit();
 
+private: //methods
+    void Load();
+    void Print();
+
+    void resizeEvent(QResizeEvent *event);
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void keyPressEvent(QKeyEvent *ev) {
+    void keyPressEvent(QKeyEvent *ev);
 
-        if (ev->key() == Qt::Key_Up) {
-            on_jumpButton_clicked();
-        }
-        if (ev->key() == Qt::Key_Down) {
-            on_slideBtn_clicked();
-        }
-    }
+    bool get_j() {return j;}
+    bool get_s() {return s;}
 
-    void on_slideBtn_clicked();
-    void on_jumpButton_clicked();
+    void set_j(bool y_n) {j = y_n;}
+    void set_s(bool y_n) {s = y_n;}
 
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
-    //QLabel *dude;
-    QMovie *running;
-    bool jumping = false;
 
-        const int gravity = 1;
-        int jumpSpeed = 14;
-        int pos;
-        int slideLength = 20;
+    GameModel *game;
+    View *label;
 
-    GameModel* mover;
-
-public:
-    bool sliding = false;
+    bool j, s;
 
 };
 
