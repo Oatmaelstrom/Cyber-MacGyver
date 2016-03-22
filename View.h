@@ -12,7 +12,7 @@ class View : public QLabel
 {
     Q_OBJECT
 
-    const int gravity = 1;
+    const int gravity = 2;
     int jumpSpeed;
     int pos;
     int slideLength;
@@ -26,7 +26,7 @@ public:
         obj = obj_type;
         main = parent;
 
-        jumpSpeed = 18;
+        jumpSpeed = 35;
         pos;
         slideLength = 20;
     }
@@ -40,6 +40,8 @@ public:
     void jump();
 
     void slide();
+
+    GameObject *getObj() { return obj; }
 
 };
 

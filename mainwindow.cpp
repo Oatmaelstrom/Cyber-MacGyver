@@ -5,9 +5,8 @@
 #include <QLabel>
 #include <QMovie>
 #include <QPixmap>
-
+#include <QMessageBox>
 #include <iostream>
-
 #include "View.h"
 
 
@@ -119,12 +118,15 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::timerHit()
 {
     QObjectList objList = this->children();
-    for(auto i = 0; i < objList.size(); i++)
+    for(int i = 0; i < objList.size(); i++)
     {
         if (dynamic_cast<View*>(objList.at(i)) != 0 )
         {
             dynamic_cast<View*>(objList.at(i))->Update(game->getScreen(), game->getBBS(), game->getSS());
         }
+    }
+    if (game->Collision()){
+      QMessageBox::information(this, "Notice", "You have died!");
     }
 }
 

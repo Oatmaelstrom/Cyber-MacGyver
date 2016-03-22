@@ -60,6 +60,8 @@ public:
     int getBBS() {return  b_s_speed;}
     int getSS() {return s_speed;}
 
+    bool Collision();
+
 
 
 };

@@ -16,7 +16,7 @@ protected:
     int extra;
     int pos;
     bool isShown;
-
+    bool isActive;
 public:
 
     GameObject(QRect *par, int ex, int num)
@@ -51,11 +51,15 @@ public:
 
     int get_x() {return x;}
     int get_y() {return y;}
+    int get_h() {return h;}
+    int get_w() {return w;}
 
     void set_x(int new_x) {x = new_x;}
     void set_y(int new_y) {y = new_y;}
 
     int getEx() {return extra;}
+
+    bool getActive() {return isActive;}
 
 
 

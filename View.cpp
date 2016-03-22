@@ -51,6 +51,9 @@ void View::Update(QRect* par, int BSS, int SS)
     }
     else if(dynamic_cast<Runner*>(obj) != 0)//runner
     {
+        //for (int i = 0; i <
+        //    if (obj->)
+        //}
 
         if (main->get_j())
         {
@@ -109,7 +112,7 @@ void View::jump()
 
     if (this->y() == obj->get_y())
     {
-        jumpSpeed = 18;
+        jumpSpeed = 35;
         this->move(this->x(), this->y());
         main->set_j(false);
     }
