@@ -3,25 +3,22 @@
 #include <QMessageBox>
 #include <mainwindow.h>
 #include <QString>
+#include <cassert>
+#include <iostream>
 
 using namespace std;
 
 void Score::saveScore(string name) {
-
-    for(size_t i = 0; i < HighScoresValues.size(); i++) {
-        if(currentScore >= HighScoresValues.at(i)) {
-            HighScoresValues.insert (HighScoresValues.begin() + i, currentScore);
-            HighScoresNames.insert (HighScoresNames.begin() + i, name);
-        }
-    }
+        HighScoresNames.push_back(name);
+        HighScoresValues.push_back(currentScore);
 }
 
 void Score::saveHighScores() {
     ofstream file;
     file.open("highscores.txt");
     for (size_t i = 0; i < HighScoresNames.size(); i++) {
-        file << HighScoresNames.at(i);
-        file << HighScoresValues.at(i);
+        file << HighScoresNames.at(i) << endl;
+        file << HighScoresValues.at(i) << endl;
     }
     file.close();
 }
@@ -29,37 +26,21 @@ void Score::saveHighScores() {
 void Score::loadHighScores() {
     ifstream file;
     file.open("highscores.txt");
-    file.seekg(0,file.end);
-    long size = file.tellg();
-    file.seekg(0);
-    char* buffer = new char[size];
-    file.read (buffer, size);
     string input;
-    vector<string> lines;
-    for(size_t i = 0; i < size; i++) {
-        if(buffer[i] != '\n') {
-            input += buffer[i];
-        } else {
-            lines.push_back(input);
-            input = "";
-        }
-    }
     bool flip = true;
-    for(size_t i = 0; i < lines.size(); i++) {
+    while (getline(file, input)) {
         if(flip) {
-            HighScoresNames.push_back(lines.at(i));
+            HighScoresNames.push_back(input);
             flip = false;
         } else {
-            QString numstr;
-            numstr.fromStdString(lines.at(i));
-            int num = numstr.toInt();
+            int num = stoi(input);
             HighScoresValues.push_back(num);
             flip = true;
         }
     }
 }
 
-void Score::printHighScores() {
+string Score::printHighScores() {
     QString text;
     QString num;
     QString from;
@@ -76,11 +57,11 @@ void Score::printHighScores() {
         text += "\n";
 
     }
-    QMessageBox Scorebox;
-    Scorebox.setWindowTitle("High Scores");
-    Scorebox.setText(text);
-    Scorebox.show();
-
+    return text.toStdString();
+    //QMessageBox Scorebox;
+    //Scorebox.setWindowTitle("High Scores");
+    //Scorebox.setText(text);
+    //Scorebox.show();
 }
 
 bool Score::removeByName(string name) {
@@ -98,4 +79,27 @@ bool Score::removeByName(string name) {
 void Score::resetHighScores() {
         HighScoresNames.clear();
         HighScoresValues.clear();
+}
+
+bool Score::Scoretest() {
+    Score* scorbject = new Score;
+    scorbject->setScore(25);
+    scorbject->saveScore("Bobaloo");
+    assert(scorbject->getHighScoresNames().at(0) == "Bobaloo");
+    assert(scorbject->getHighScoresValues().at(0) == 25);
+    scorbject->incScore();
+    scorbject->saveScore("Unferth");
+    scorbject->saveHighScores();
+    scorbject->resetHighScores();
+    scorbject->loadHighScores();
+    assert(scorbject->getHighScoresNames().at(1) == "Unferth");
+    assert(scorbject->getHighScoresValues().at(1) == 26);
+    string output = scorbject->printHighScores();
+    cout << output << endl;
+    if(scorbject->removeByName("Bobaloo")) {
+        output = scorbject->printHighScores();
+        cout << output << endl;
+    }
+    delete scorbject;
+    return true;
 }

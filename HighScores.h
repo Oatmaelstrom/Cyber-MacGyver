@@ -15,6 +15,9 @@ class Score : public QObject{
 
 public:
 
+    vector<string> getHighScoresNames() {return HighScoresNames; }
+    vector<int> getHighScoresValues() {return HighScoresValues;}
+
     void setScore(int newScore) { currentScore = newScore; }
     int getScore() { return currentScore; }
     void incScore() { currentScore++; }
@@ -25,10 +28,11 @@ public:
     void saveHighScores();
     //loads HighScores from file
     void loadHighScores();
-    void printHighScores();
+    string printHighScores();
     void resetHighScores();
     //returns true if successfully removes score. false if did not remove score.
     bool removeByName(string name);
+    bool Scoretest();
 };
 
 
