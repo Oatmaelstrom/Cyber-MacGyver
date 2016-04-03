@@ -60,6 +60,8 @@ public:
     int getEx() {return extra;}
 
     bool getActive() {return isActive;}
+    void setActive(bool logic) {isActive = logic;}
+
 
 
 

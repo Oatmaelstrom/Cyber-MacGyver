@@ -19,7 +19,6 @@ public:
 
     void setSize(QRect *new_, QRect *old){}
     void size(){}
-    void setActive(bool state) { isActive = state; }
 };
 
 class highob :public Obstacles

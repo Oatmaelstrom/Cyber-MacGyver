@@ -43,6 +43,8 @@ public:
 
     GameObject *getObj() { return obj; }
 
+    bool Test(GameModel *stuff);
+
 };
 
 

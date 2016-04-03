@@ -85,6 +85,7 @@ void View::Update(QRect* par, int BSS, int SS)
          {
             this->move(par->width()/ 7* 13 , obj->get_y());
             obj->set_x(par->width()/ 7* 13 );
+            obj->setActive(true);
          }
     }
 
@@ -157,4 +158,15 @@ void View::slide()
 
         }
        slideLength --;
+}
+
+bool View::Test(GameModel* stuff)
+{
+//    if(dynamic_cast<Runner*>(obj) != 0)
+//    {
+////        if(stuff->Collision(obj))
+////        {
+////            return true;
+////        }
+//    }
 }

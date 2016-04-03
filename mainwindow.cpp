@@ -123,12 +123,14 @@ void MainWindow::timerHit()
         if (dynamic_cast<View*>(objList.at(i)) != 0 )
         {
             dynamic_cast<View*>(objList.at(i))->Update(game->getScreen(), game->getBBS(), game->getSS());
-        }
+        }     
     }
-    if (game->Collision()){
-      QMessageBox::information(this, "Notice", "You have died!");
+    if (game->Collision(j,s))
+    {
+     QMessageBox::information(this, "Notice", "You have died!");
     }
 }
+
 
 void MainWindow::keyPressEvent(QKeyEvent *ev) {
 

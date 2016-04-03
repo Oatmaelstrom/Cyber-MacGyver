@@ -101,39 +101,28 @@ void GameModel::ReSize()
     }
 }
 
-bool GameModel::Collision()
+bool GameModel::Collision(bool jump, bool slide)
 {
-    for (auto i = 0; i < objs.size(); ++i)
+
+    for (int i = 0; i < objs.size(); ++i)
     {
-
-        if (dynamic_cast<Runner*>(objs.at(i)) != 0)
-        {
-            for (int j = 0; j < objs.size(); j++) {
-
-                if (dynamic_cast<Obstacles*>(objs.at(j)) != 0) {
-
-                    if (dynamic_cast<Obstacles*>(objs.at(j))->getActive()) {
-                        /*double guyRadius = guy->get_h() / 2;
-                        double obRadius = sqrt((obstacle->get_w() * obstacle->get_w()) + (obstacle->get_h() * obstacle->get_h())) / 2;
-                        double minimumDistance = guyRadius + obRadius;
-                        double actualDistance = sqrt((((obstacle->get_y() + (obstacle->get_h()/2)) - (guy->get_y() + (guy->get_h()/2)))^2) +
-                                                (((obstacle->get_x() + (obstacle->get_w()/2)) - (guy->get_x() + (guy->get_w()/2)))^2));*/ // CENTER of runner distance
-                                                                                                                                      // from CENTER of obstacle
-//                        if (actualDistance < minimumDistance) {
-//                            cout << "collision";
-//                        }
-
-                        if(objs.at(i)->get_x() + objs.at(i)->get_w() >= objs.at(j)->get_x())
-                        {
-                            return true;
-                        }
-                    }
-                }
+      if(dynamic_cast<Obstacles*>(objs.at(i)) != 0 && objs.at(i)->getActive())
+      {
+            if(objs.back()->get_x() + objs.back()->get_w() >= objs.at(i)->get_x() && !jump)
+            {
+                return true;
             }
-        }
+            else if (objs.back()->get_x() + objs.back()->get_w() >= objs.at(i)->get_x() && jump)
+            {
+                objs.at(i)->setActive(false);
+            }
 
+
+        }
+      }
     }
 
-}
+
+
 
 
