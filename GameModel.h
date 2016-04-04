@@ -1,39 +1,71 @@
 #ifndef GAMEMODEL_H
 #define GAMEMODEL_H
 
-#include <QMainWindow>
-#include <iostream>
-#include <string>
+#include "Background.h"
+#include "Scenery.h"
+#include "Obstacles.h"
+#include "Runner.h"
+
+#include "mainwindow.h"
+
+#include "GameObject.h"
+
+#include <QDebug>
 
 using namespace std;
 
-namespace Ui{
 class MainWindow;
-}
 
 class GameModel
 {
-    int x, y;
-    string image;
+    //Renndering paramiters.
+    int b_s_speed;
+    int s_speed;
 
-    public:
-    GameModel(int initX, int initY, string initImage): x(initX), y(initY), image(initImage)
-    {}
+    //All game objects i.e. backgrond, obstacles, runner...
+    vector<GameObject*> objs;
 
-    virtual void Running();
+    //MainWindow paramiters
+    QRect *screen;
+    //This is used for window resising
+    QRect* window;
 
-    virtual void Jump();
+public:
+    GameModel(MainWindow *main)
+    {
+        screen = new QRect(main->geometry());
+        b_s_speed = 2;
+        s_speed = 20;
+    }
 
-    virtual void Slide();
+    void Load();
 
-    virtual void Load();
+    void Save();
 
-    virtual void Save();
+    void print();
+
+    vector<GameObject*> getObjects() {return objs;}
+
+    //does the math for window resize
+    void ReSize();
+    int getH() {return  screen->height();}
+    int getW() {return  screen->width();}
+
+    void setScreen(QRect * par)
+    {   window = screen;
+        screen = par;
+    }
+    QRect* getScreen() { return screen;}
+
+    int getBBS() {return  b_s_speed;}
+    int getSS() {return s_speed;}
+
+    bool Collision(bool jump, bool slide);
+
+
 
 };
 
-class Player : public GameModel
-{
 
-};
+
 #endif // GAMEMODEL_H
