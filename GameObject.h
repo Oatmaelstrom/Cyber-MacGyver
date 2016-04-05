@@ -9,6 +9,7 @@ class GameObject
 protected:
     int x;
     int y;
+    int initY;
     int w;
     int h;
     QString image;
@@ -17,6 +18,8 @@ protected:
     int pos;
     bool isShown;
     bool isActive;
+    bool isDead;
+
 public:
 
     GameObject(QRect *par, int ex, int num)
@@ -25,8 +28,10 @@ public:
         extra = ex;
         x = par->x();
         y = par->y();
+        initY = par->y();
         w = par->width();
         h = par->height();
+        isDead = false;
         isShown = false;
     }
 
@@ -53,9 +58,12 @@ public:
     int get_y() {return y;}
     int get_h() {return h;}
     int get_w() {return w;}
+    int get_initY() {return initY;}
 
     void set_x(int new_x) {x = new_x;}
     void set_y(int new_y) {y = new_y;}
+    void set_initY(int new_initY) {initY = new_initY;}
+    void die() { isDead = true; }
 
     int getEx() {return extra;}
 

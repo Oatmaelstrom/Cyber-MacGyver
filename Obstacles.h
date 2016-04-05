@@ -97,4 +97,27 @@ public:
     }
 };
 
+//class cheatob: public Obstacles
+//{
+//public:
+
+//    cheatob(QRect *par, int ex, int num) : Obstacles(par, ex, num)
+//    {
+//        x += par->width();
+//        y += par->height();
+//        w += ex;
+//        image = ":/stuff/3.png";
+//        this->size();
+//    }
+
+//    void size()
+//    {
+//       x = x / 7*pos;
+//       y = h / 6 *5;
+//       w = w /7;
+//       h = h/6;
+//    }
+
+//};
+
 #endif // OBSTACLES_H

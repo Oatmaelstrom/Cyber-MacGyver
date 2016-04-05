@@ -17,6 +17,8 @@ class View : public QLabel
     int pos;
     int slideLength;
 
+    QMovie *vid;
+
     GameObject* obj;
     MainWindow *main;
 
@@ -26,7 +28,7 @@ public:
         obj = obj_type;
         main = parent;
 
-        jumpSpeed = 35;
+        jumpSpeed = 32;
         pos;
         slideLength = 20;
     }
