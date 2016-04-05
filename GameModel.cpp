@@ -39,6 +39,8 @@ void GameModel::Load()
 //         objs.push_back(new midob(screen, 0, i));
 //       }
 //    }
+//    objs.push_back(new cheatob(screen, 0, 5));
+//    dynamic_cast<cheatob*>(objs.back())->setActive(true);
 
     objs.push_back(new midob(screen, 0, 7));
     dynamic_cast<midob*>(objs.back())->setActive(true);
@@ -101,28 +103,33 @@ void GameModel::ReSize()
     }
 }
 
-bool GameModel::Collision(bool jump, bool slide)
+bool GameModel::Collision(bool jump, bool slide, int height)
 {
 
     for (int i = 0; i < objs.size(); ++i)
     {
-      if(dynamic_cast<Obstacles*>(objs.at(i)) != 0 && objs.at(i)->getActive())
-      {
-            if(objs.back()->get_x() + objs.back()->get_w() >= objs.at(i)->get_x() && !jump)
-            {
-                return true;
-            }
-            else if (objs.back()->get_x() + objs.back()->get_w() >= objs.at(i)->get_x() && jump)
+        if(dynamic_cast<Obstacles*>(objs.at(i)) != 0 && objs.at(i)->getActive())
+        {
+            if (objs.back()->get_x() >= objs.at(i)->get_x() + objs.at(i)->get_w())
             {
                 objs.at(i)->setActive(false);
             }
 
-
+            else if (objs.back()->get_x() + objs.back()->get_w() >= objs.at(i)->get_x() &&
+              objs.back()->get_y() + objs.back()->get_h() >= objs.at(i)->get_y())
+            {
+                return true;
+            }
         }
-      }
+    }
+        return false;
+}
+
+void GameModel::Restart()
+{
+    for(int i = 0; i < objs.size(); ++i)
+    {
+        delete objs.at(i);
     }
 
-
-
-
-
+}

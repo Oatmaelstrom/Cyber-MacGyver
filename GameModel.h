@@ -35,7 +35,7 @@ public:
     {
         screen = new QRect(main->geometry());
         b_s_speed = 2;
-        s_speed = 20;
+        s_speed = 12;
     }
 
     void Load();
@@ -43,6 +43,8 @@ public:
     void Save();
 
     void print();
+
+    void Restart();
 
     vector<GameObject*> getObjects() {return objs;}
 
@@ -59,10 +61,9 @@ public:
 
     int getBBS() {return  b_s_speed;}
     int getSS() {return s_speed;}
+    void stopScroll() { b_s_speed = s_speed = 0; }
 
-    bool Collision(bool jump, bool slide);
-
-
+    bool Collision(bool jump, bool slide, int height);
 
 };
 

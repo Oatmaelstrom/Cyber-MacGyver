@@ -5,7 +5,7 @@ void View::format()
 {
     if (dynamic_cast<Runner*>(obj) != 0)
     {
-       QMovie *vid = new QMovie(obj->getImage());
+       vid = new QMovie(obj->getImage());
        this->setMovie(vid);
        vid->start();
     }
@@ -54,6 +54,12 @@ void View::Update(QRect* par, int BSS, int SS)
         //for (int i = 0; i <
         //    if (obj->)
         //}
+        if (main->get_c()) {
+            this->setPixmap(QPixmap(":/stuff/slide1.png"));
+        } else {
+            this->setMovie(vid);
+            vid->start();
+        }
 
         if (main->get_j())
         {
@@ -83,11 +89,22 @@ void View::Update(QRect* par, int BSS, int SS)
 
          if(obj->get_x() <= -par->width()/ 7 + SS/4)
          {
-            this->move(par->width()/ 7* 13 , obj->get_y());
-            obj->set_x(par->width()/ 7* 13 );
+            this->move(par->width()/ 7* 14 , obj->get_y());
+            obj->set_x(par->width()/ 7* 14 );
             obj->setActive(true);
          }
     }
+//    else if( dynamic_cast<cheatob*>(obj) != 0)//cheatob
+//        {
+//            this->move(obj->get_x() - SS, obj->get_y());
+//            obj->set_x(obj->get_x() - SS);
+
+//             if(obj->get_x() <= -par->width()/ 7 + SS/4)
+//             {
+//                this->move(par->width()/ 7* 13 , obj->get_y());
+//                obj->set_x(par->width()/ 7* 13 );
+//             }
+//        }
 
 
 
@@ -107,17 +124,23 @@ void View::jump()
 //        vid->start();
 //        this->setMovie(vid);
 //    }
+    if (obj->get_initY() == 0) {
+        obj->set_initY(obj->get_y());
+    }
     this->move(this->x(), this->y() - jumpSpeed);
     jumpSpeed -= gravity;
 
+    obj->set_x(this->x());
+    obj->set_y(this->y());
 
-    if (this->y() == obj->get_y())
-    {
-        jumpSpeed = 35;
-        this->move(this->x(), this->y());
-        main->set_j(false);
+    if (obj->get_initY() != 0) {
+        if (obj->get_y() >= obj->get_initY())
+        {
+            jumpSpeed = 32;
+            this->move(this->x(), obj->get_initY());
+            main->set_j(false);
+        }
     }
-
 }
 
 void View::slide()
@@ -148,11 +171,8 @@ void View::slide()
             main->set_s(false);
             if (!main->get_s())
             {
-                QMovie *vid = new QMovie(obj->getImage());
                 this->setMovie(vid);
                 vid->start();
-                this->setMovie(vid);
-                this->move(obj->get_x(), obj->get_y());
                 //delete vid;
             }
 

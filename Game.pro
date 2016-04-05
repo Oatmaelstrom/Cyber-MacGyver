@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     Scenery.cpp \
     Obstacles.cpp \
     View.cpp \
-    GameObject.cpp
+    GameObject.cpp \
+    Highscores.cpp
 
 HEADERS  += mainwindow.h \
     GameModel.h \
@@ -29,11 +30,15 @@ HEADERS  += mainwindow.h \
     Obstacles.h \
     Runner.h \
     View.h \
-    GameObject.h
+    GameObject.h \
+    Highscores.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     resources.qrc
 
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++11
+
+OTHER_FILES += \
+    highscores.txt

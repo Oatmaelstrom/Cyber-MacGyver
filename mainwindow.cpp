@@ -1,14 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "GameModel.h"
+#include "Highscores.h"
 
 #include <QLabel>
+#include <QFont>
+#include <QPushButton>
+#include <QLineEdit>
 #include <QMovie>
 #include <QPixmap>
 #include <QMessageBox>
 #include <iostream>
+#include <string>
+#include <QString>
+#include <QSizePolicy>
 #include "View.h"
 
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     s = false;
     j = false;
+    c = false;
 
     game = new GameModel(this);
 
@@ -37,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->setInterval(30);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerHit()));
     timer->start();
+
+    scoresheet.loadHighScores();
+    scorelabel = new QLabel(this);
+    scorelabel->setStyleSheet("background-color: white");
 }
 
 MainWindow::~MainWindow()
@@ -123,12 +136,41 @@ void MainWindow::timerHit()
         if (dynamic_cast<View*>(objList.at(i)) != 0 )
         {
             dynamic_cast<View*>(objList.at(i))->Update(game->getScreen(), game->getBBS(), game->getSS());
-        }     
+        }
+
     }
-    if (game->Collision(j,s))
+    if (game->Collision(j,s, game->getObjects().back()->get_y()) && !c)
     {
-     QMessageBox::information(this, "Notice", "You have died!");
+        timer->stop();
+
+        nameline = new QLineEdit(this);
+        nameline->move(this->width()/2 - 50, this->height()/2 - 50);
+        nameline->setPlaceholderText("Enter your name here.");
+        nameline->show();
+
+        scorebutton = new QPushButton("Save Scores", this);
+        scorebutton->move(this->width()/2 - 50, this->height()/2 + 50);
+        connect(scorebutton, SIGNAL(clicked()), this, SLOT(savescorebutton_clicked()));
+        scorebutton->show();
+
+        newgame = new QPushButton("Restart?", this);
+        newgame->move(this->width()/2 - 150, this->height()/2);
+        connect(newgame, SIGNAL(clicked()), this, SLOT(restart_clicked()));
+        newgame->show();
+
+        endgame = new QPushButton("End Game?", this);
+        endgame->move(this->width()/2 + 50, this->height()/2);
+        connect(endgame, SIGNAL(clicked()), this, SLOT(endgame_clicked()));
+        endgame->show();
+        //QMessageBox::critical(this, "Game Over...", "You have died!");
+
     }
+
+    scoresheet.incScore();
+    int score = scoresheet.getScore();
+    QString scorey = QString::number(score);
+    scorelabel->setText(scorey);
+    scorelabel->show();
 }
 
 
@@ -142,6 +184,36 @@ void MainWindow::keyPressEvent(QKeyEvent *ev) {
     {
         s = true;
     }
+    if (ev->key() == Qt::Key_C)
+    {
+        if (c) { c = false; } else { c = true; }
+    }
+}
+
+void MainWindow::restart_clicked() {
+    QMessageBox::warning(this, "Uh oh...", "This has yet to be implemented. :(");
+    //game->Restart();
+}
+
+void MainWindow::endgame_clicked() {
+    scoresheet.saveHighScores();
+    qApp->quit();
+}
+
+void MainWindow::savescorebutton_clicked() {
+    if(nameline->text() == "") {
+        QMessageBox::warning(this, "Invalid field", "Please enter a name");
+    } else {
+    scoresheet.saveScore(QString(nameline->text()));
+    connect(scorebutton, SIGNAL(clicked()), this, SLOT(scorebutton_clicked()));
+    disconnect(scorebutton, SIGNAL(clicked()), this, SLOT(savescorebutton_clicked()));
+    scorebutton->setText("See Scores");
+    }
+}
+
+void MainWindow::scorebutton_clicked() {
+    //scoresheet.saveScore(QString(nameline->text()));
+    QMessageBox::warning(this, "Scores", scoresheet.printHighScores());
 }
 
 //void MainWindow::on_slideBtn_clicked()
