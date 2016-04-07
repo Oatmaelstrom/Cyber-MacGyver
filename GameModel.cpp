@@ -42,6 +42,9 @@ void GameModel::Load()
 //    objs.push_back(new cheatob(screen, 0, 5));
 //    dynamic_cast<cheatob*>(objs.back())->setActive(true);
 
+    objs.push_back(new highob(screen, 0, 11));
+    dynamic_cast<highob*>(objs.back())->setActive(true);
+
     objs.push_back(new midob(screen, 0, 7));
     dynamic_cast<midob*>(objs.back())->setActive(true);
     objs.push_back(new midob(screen, 0, 14));
@@ -119,6 +122,10 @@ bool GameModel::Collision(bool jump, bool slide, int height)
               objs.back()->get_y() + objs.back()->get_h() >= objs.at(i)->get_y())
             {
                 return true;
+            }
+            else if (objs.back()->get_y() > objs.at(i)->get_y() && slide)
+            {
+                objs.at(i)->setActive(false);
             }
         }
     }

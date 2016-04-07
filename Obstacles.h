@@ -28,15 +28,20 @@ public:
 
      highob(QRect *par, int ex, int num) : Obstacles(par, ex, num)
     {
-//        x
-//        y
-//        w
-//        h
-            this->size();
+         x += par->width();
+         y += par->height();
+         w += ex;
+         image = ":/stuff/borad.png";
+         this->size();
     }
 
-    void size(){}
-
+     void size()
+     {
+         x = x / 7*pos;
+         y = h / 6 *2;
+         w = w /10;
+         h = h/3;
+     }
 };
 
 class midob :public Obstacles
@@ -97,27 +102,26 @@ public:
     }
 };
 
-//class cheatob: public Obstacles
-//{
-//public:
+/*class cheatob: public Obstacles
+{
+public:
 
-//    cheatob(QRect *par, int ex, int num) : Obstacles(par, ex, num)
-//    {
-//        x += par->width();
-//        y += par->height();
-//        w += ex;
-//        image = ":/stuff/3.png";
-//        this->size();
-//    }
+    cheatob(QRect *par, int ex, int num) : Obstacles(par, ex, num)
+   {
+        x += par->width();
+        y += par->height();
+        w += ex;
+        image = ":/stuff/borad.png";
+        this->size();
+   }
 
-//    void size()
-//    {
-//       x = x / 7*pos;
-//       y = h / 6 *5;
-//       w = w /7;
-//       h = h/6;
-//    }
-
-//};
+    void size()
+    {
+        x = x / 7*pos;
+        y = h / 6 *5;
+        w = w /7;
+        h = h/6;
+    }
+};*/
 
 #endif // OBSTACLES_H

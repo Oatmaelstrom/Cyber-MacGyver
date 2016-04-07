@@ -82,7 +82,7 @@ void View::Update(QRect* par, int BSS, int SS)
             obj->set_x(par->width()/ 7* 13 );
          }
     }
-    else if( dynamic_cast<midob*>(obj) != 0)//lowob
+    else if( dynamic_cast<midob*>(obj) != 0)//highob
     {
         this->move(obj->get_x() - SS, obj->get_y());
         obj->set_x(obj->get_x() - SS);
@@ -94,7 +94,20 @@ void View::Update(QRect* par, int BSS, int SS)
             obj->setActive(true);
          }
     }
-//    else if( dynamic_cast<cheatob*>(obj) != 0)//cheatob
+    else if (dynamic_cast<highob*>(obj) != 0)//highob
+    {
+        this->move(obj->get_x() - SS, obj->get_y());
+        obj->set_x(obj->get_x() - SS);
+
+         if(obj->get_x() <= -par->width()/ 7 + SS/4)
+         {
+            this->move(par->width()/ 7* 14 , obj->get_y());
+            obj->set_x(par->width()/ 7* 14 );
+            obj->setActive(true);
+         }
+    }
+
+// else if( dynamic_cast<cheatob*>(obj) != 0)//cheatob
 //        {
 //            this->move(obj->get_x() - SS, obj->get_y());
 //            obj->set_x(obj->get_x() - SS);
