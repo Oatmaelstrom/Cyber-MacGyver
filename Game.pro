@@ -23,7 +23,7 @@ SOURCES += main.cpp\
     GameObject.cpp \
     Highscores.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS += mainwindow.h \
     GameModel.h \
     Background.h \
     Scenery.h \
@@ -33,7 +33,7 @@ HEADERS  += mainwindow.h \
     GameObject.h \
     Highscores.h
 
-FORMS    += mainwindow.ui
+FORMS   += mainwindow.ui
 
 RESOURCES += \
     resources.qrc

@@ -9,10 +9,10 @@
 using namespace std;
 
 
-
 void Score::saveScore(QString name) {
         HighScoresNames.push_back(name.toStdString());
         HighScoresValues.push_back(currentScore);
+        this->sortScores();
 }
 
 void Score::saveHighScores() {
@@ -57,13 +57,11 @@ QString Score::printHighScores() {
         num = "";
         text += num.number(HighScoresValues.at(i), 10);
         text += "\n";
-
+        if (i >= 10) {
+            return text;    //return top 10 scores
+        }
     }
     return text;
-    //QMessageBox Scorebox;
-    //Scorebox.setWindowTitle("High Scores");
-    //Scorebox.setText(text);
-    //Scorebox.show();
 }
 
 bool Score::removeByName(string name) {
@@ -94,8 +92,8 @@ bool Score::Scoretest() {
     scorbject->saveHighScores();
     scorbject->resetHighScores();
     scorbject->loadHighScores();
-    assert(scorbject->getHighScoresNames().at(1) == "Unferth");
-    assert(scorbject->getHighScoresValues().at(1) == 26);
+    assert(scorbject->getHighScoresNames().at(0) == "Unferth");
+    assert(scorbject->getHighScoresValues().at(0) == 26);
     QString output = scorbject->printHighScores();
     cout << output.toStdString() << endl;
     if(scorbject->removeByName("Bobaloo")) {
@@ -104,4 +102,15 @@ bool Score::Scoretest() {
     }
     delete scorbject;
     return true;
+}
+
+void Score::sortScores() {
+    for (int j = 0; j < HighScoresValues.size(); j++) {
+        for (int i = j; i < HighScoresValues.size(); i++) {
+            if (HighScoresValues.at(j) < HighScoresValues.at(i)) {
+                swap(HighScoresValues.at(j), HighScoresValues.at(i));
+                swap(HighScoresNames.at(j), HighScoresNames.at(i));
+            }
+        }
+    }
 }

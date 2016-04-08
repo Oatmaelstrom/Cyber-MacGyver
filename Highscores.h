@@ -36,6 +36,7 @@ public:
     //returns true if successfully removes score. false if did not remove score.
     bool removeByName(string name);
     bool Scoretest();
+    void sortScores();
 };
 
 
